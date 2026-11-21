@@ -29,3 +29,7 @@ Coming soon.
 ## Data
 
 Coming soon.
+
+## Citation
+
+If you use CityGym or BuildFromGen in your research, please cite CityGym using [the BibTeX entry](CITATION.bib).
