@@ -32,4 +32,15 @@ Coming soon.
 
 ## Citation
 
-If you use CityGym or BuildFromGen in your research, please cite CityGym using [the BibTeX entry](CITATION.bib).
+If you use CityGym or BuildFromGen in your research, please cite CityGym.
+
+```bibtex
+@misc{ma2026citygym,
+  title  = {{CityGym}: A Citywide Benchmark for Generative Building Reconstruction from Partial Aerial Observations},
+  author = {Ma, Yanwen and He, Lingfeng and Deng, Yichen and Zhang, Xuying and Guo, Yijing and Li, Haoran and Tan, Yumin},
+  year   = {2026},
+  url    = {https://github.com/Gelercatty/CityGym}
+}
+```
+
+[Download CITATION.bib](CITATION.bib)
