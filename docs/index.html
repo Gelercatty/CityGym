@@ -7,11 +7,11 @@
   <meta name="description" content="CityGym pairs calibrated aerial observations with complete building meshes across four procedural cities, with BuildFromGen as a generative baseline.">
   <meta property="og:title" content="CityGym · Generative Building Reconstruction">
   <meta property="og:description" content="A citywide benchmark for recovering complete buildings from partial aerial observations.">
-  <meta property="og:image" content="https://gelercatty.github.io/CityGym/media/reconstructed-city.jpg">
+  <meta property="og:image" content="https://gelercatty.github.io/CityGym/media/figure-1.jpg">
   <title>CityGym · Generative Building Reconstruction</title>
   <link rel="icon" href="media/mark.png">
-  <link rel="stylesheet" href="style.css">
-  <script src="page.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=figure1">
+  <script src="page.js?v=figure1" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -35,20 +35,39 @@
       </div>
     </section>
 
-    <figure class="frame panorama">
-      <div class="comparison" id="comparison">
-        <img src="media/reconstructed-city.jpg" alt="Citywide visualization of BuildFromGen predicted buildings, colored by instance." width="1920" height="804" fetchpriority="high">
-        <img class="survey" src="media/survey-city.jpg" alt="Original simulated city from the same camera." width="1920" height="804" fetchpriority="high">
-        <span class="image-tag survey-tag">Original scene</span>
-        <span class="image-tag mesh-tag">BuildFromGen</span>
-        <div class="divider" aria-hidden="true"><span></span></div>
-        <input id="reveal" type="range" min="0" max="100" value="50" aria-label="Original scene visible" aria-describedby="compare-caption">
+    <section class="frame panorama" aria-label="Citywide reconstruction">
+      <div class="panorama-tabs" role="tablist" aria-label="Citywide reconstruction view">
+        <button id="figure-tab" type="button" role="tab" aria-selected="true" aria-controls="figure-panel" data-panorama>Paper figure</button>
+        <button id="compare-tab" type="button" role="tab" aria-selected="false" aria-controls="compare-panel" tabindex="-1" data-panorama>Drag to compare</button>
       </div>
-      <figcaption id="compare-caption">
-        <span>Citywide reconstruction from a fixed camera.</span>
-        <span>Drag to compare</span>
-      </figcaption>
-    </figure>
+      <div id="figure-panel" role="tabpanel" aria-labelledby="figure-tab" tabindex="0">
+        <figure class="paper-panorama">
+          <img src="media/figure-1.jpg" alt="Paper Figure 1. A dashed line divides the original city and its BuildFromGen reconstruction. Inset views show an aerial image and the predicted mesh of a single building." width="3432" height="909" fetchpriority="high">
+          <figcaption>
+            <span>Figure 1 · Citywide reconstruction</span>
+            <a href="media/figure-1.jpg">View full image</a>
+          </figcaption>
+        </figure>
+      </div>
+      <div id="compare-panel" role="tabpanel" aria-labelledby="compare-tab" tabindex="0" hidden>
+        <figure>
+          <div class="comparison-frame">
+            <div class="comparison" id="comparison">
+              <img src="media/oblique-reconstruction.jpg" alt="BuildFromGen predicted buildings from the Figure 1 viewpoint." width="1920" height="701" loading="lazy">
+              <img class="survey" src="media/oblique-survey.jpg" alt="Original simulated city from the same camera." width="1920" height="701" loading="lazy">
+              <span class="image-tag survey-tag">Original scene</span>
+              <span class="image-tag mesh-tag">BuildFromGen</span>
+              <div class="divider" aria-hidden="true"><span></span></div>
+              <input id="reveal" type="range" min="0" max="100" value="50" aria-label="Original scene visible" aria-describedby="compare-caption">
+            </div>
+            <div class="comparison-insets">
+              <img src="media/figure-1.jpg" alt="Figure 1 insets showing an aerial view and the predicted mesh of the highlighted building." width="3432" height="909" loading="lazy">
+            </div>
+          </div>
+          <figcaption id="compare-caption"><span>Drag the divider to reveal the original scene or reconstruction.</span></figcaption>
+        </figure>
+      </div>
+    </section>
 
     <dl class="frame stats" aria-label="Benchmark at a glance">
       <div><dt>Procedural cities</dt><dd>4</dd></div>

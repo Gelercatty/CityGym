@@ -10,6 +10,45 @@ function updateComparison() {
 reveal.addEventListener("input", updateComparison);
 updateComparison();
 
+function bindTabs(selector, onSelect) {
+  const tabs = Array.from(document.querySelectorAll(selector));
+
+  function activate(tab) {
+    tabs.forEach((item) => {
+      const selected = item === tab;
+      item.setAttribute("aria-selected", String(selected));
+      item.tabIndex = selected ? 0 : -1;
+    });
+    onSelect(tab);
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => activate(tab));
+    tab.addEventListener("keydown", (event) => {
+      const targets = {
+        ArrowLeft: (index + tabs.length - 1) % tabs.length,
+        ArrowRight: (index + 1) % tabs.length,
+        Home: 0,
+        End: tabs.length - 1,
+      };
+      if (!Object.hasOwn(targets, event.key)) return;
+      const next = tabs[targets[event.key]];
+      event.preventDefault();
+      activate(next);
+      next.focus();
+    });
+  });
+}
+
+const panoramaPanels = ["figure-panel", "compare-panel"].map(
+  (id) => document.getElementById(id)
+);
+bindTabs("[data-panorama]", (tab) => {
+  panoramaPanels.forEach((panel) => {
+    panel.hidden = panel.id !== tab.getAttribute("aria-controls");
+  });
+});
+
 const cities = {
   "01": { meshes: "2,310", views: "48,048", building: "02041" },
   "02": { meshes: "2,355", views: "48,061", building: "01431" },
@@ -17,7 +56,6 @@ const cities = {
   "04": { meshes: "2,315", views: "48,215", building: "00326" },
 };
 
-const tabs = Array.from(document.querySelectorAll("[data-city]"));
 const cityPanel = document.getElementById("city-panel");
 const cityImage = document.getElementById("city-image");
 const cityName = document.getElementById("city-name");
@@ -30,11 +68,6 @@ const caseImages = ["rgb", "points", "mesh"].map(
 function selectCity(tab) {
   const id = tab.dataset.city;
   const city = cities[id];
-  tabs.forEach((item) => {
-    const selected = item === tab;
-    item.setAttribute("aria-selected", String(selected));
-    item.tabIndex = selected ? 0 : -1;
-  });
   cityPanel.setAttribute("aria-labelledby", tab.id);
   cityImage.src = "media/city-" + id + ".jpg";
   cityImage.alt = "Aerial overview of City " + id;
@@ -46,22 +79,7 @@ function selectCity(tab) {
   });
 }
 
-tabs.forEach((tab, index) => {
-  tab.addEventListener("click", () => selectCity(tab));
-  tab.addEventListener("keydown", (event) => {
-    const targets = {
-      ArrowLeft: (index + tabs.length - 1) % tabs.length,
-      ArrowRight: (index + 1) % tabs.length,
-      Home: 0,
-      End: tabs.length - 1,
-    };
-    if (!(event.key in targets)) return;
-    const next = tabs[targets[event.key]];
-    event.preventDefault();
-    selectCity(next);
-    next.focus();
-  });
-});
+bindTabs("[data-city]", selectCity);
 
 const copy = document.getElementById("copy-bib");
 const bibtex = document.getElementById("bibtex");

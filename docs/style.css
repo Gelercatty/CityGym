@@ -104,15 +104,44 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .authors { margin-block: 1rem 1.2rem; max-width: 37rem; color: var(--muted); line-height: 1.5; }
 
 .panorama { margin-block: 0; }
+.panorama-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-bottom: .7rem;
+}
+.panorama-tabs button {
+  padding: .55rem .85rem;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--panel);
+  color: var(--muted);
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 600;
+}
+.panorama-tabs button:hover { border-color: var(--accent); color: var(--ink); }
+.panorama-tabs button[aria-selected="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #18210d;
+}
+.paper-panorama img, .comparison-frame { border: 1px solid #758266; border-radius: 8px; }
+.comparison-frame {
+  display: grid;
+  grid-template-columns: 2490fr 942fr;
+}
 .comparison {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  aspect-ratio: 1920 / 804;
-  border: 1px solid #758266;
-  border-radius: 8px;
+  aspect-ratio: 2490 / 909;
+  border-radius: 7px 0 0 7px;
   background: #303b2d;
 }
+.comparison-insets { position: relative; overflow: hidden; border-radius: 0 7px 7px 0; }
+.comparison-insets img { position: absolute; inset: 0 0 0 auto; height: 100%; width: auto; }
 .comparison img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
 .survey { clip-path: inset(0 calc(100% - var(--reveal)) 0 0); }
 .image-tag {
@@ -170,7 +199,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 .comparison input::-webkit-slider-thumb { appearance: none; width: 2px; height: 100%; }
 .comparison input::-moz-range-thumb { width: 2px; height: 2px; border: 0; }
-.comparison:focus-within { outline: 2px solid var(--accent); outline-offset: 5px; }
+.comparison:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: -3px; }
 .panorama figcaption {
   display: flex;
   justify-content: space-between;
@@ -179,7 +208,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   color: var(--muted);
   font: 400 .78rem/1.5 var(--mono);
 }
-.panorama figcaption span:last-child { flex-shrink: 0; color: var(--accent); }
+.panorama figcaption a { flex-shrink: 0; color: var(--accent); text-underline-offset: .2em; }
 
 .stats, .results {
   display: grid;
@@ -312,7 +341,9 @@ h2 { font-size: clamp(2.5rem, 5.7vw, 5.8rem); letter-spacing: -.061em; font-weig
   .intro h1 { font-size: clamp(4.4rem, 19.8vw, 8rem); }
   .subtitle { max-width: 28rem; }
   .authors { font-size: .92rem; }
-  .comparison { aspect-ratio: 1.43; }
+  .comparison-frame { grid-template-columns: 1fr; }
+  .comparison { aspect-ratio: 1.7; border-radius: 7px; }
+  .comparison-insets { display: none; }
   .city-view img { aspect-ratio: 1.7; }
   .stats div, .results div { padding-inline: .48rem; }
   .stats dt, .results dt, .city-view figcaption span { font-size: .7rem; }
@@ -324,7 +355,7 @@ h2 { font-size: clamp(2.5rem, 5.7vw, 5.8rem); letter-spacing: -.061em; font-weig
 }
 @media (max-width: 359px) {
   .masthead nav { order: 3; width: 100%; padding-bottom: .35rem; }
-  .comparison { aspect-ratio: 1.25; }
+  .comparison { aspect-ratio: 1.5; }
   .stats dd, .results dd { font-size: 1.45rem; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
