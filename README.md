@@ -2,6 +2,8 @@
 
 **A Citywide Benchmark for Generative Building Reconstruction from Partial Aerial Observations**
 
+[Project page](https://gelercatty.github.io/CityGym/)
+
 ![Citywide reconstruction with BuildFromGen](assets/teaser.png)
 
 *Citywide reconstruction with BuildFromGen. The white dashed line separates the original scene (left) from the reconstruction (right). Insets show one building in an input view and its predicted mesh from the same camera.*

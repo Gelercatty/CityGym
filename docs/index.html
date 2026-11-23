@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101410">
+  <meta name="description" content="CityGym pairs calibrated aerial observations with complete building meshes across four procedural cities, with BuildFromGen as a generative baseline.">
+  <meta property="og:title" content="CityGym · Generative Building Reconstruction">
+  <meta property="og:description" content="A citywide benchmark for recovering complete buildings from partial aerial observations.">
+  <meta property="og:image" content="https://gelercatty.github.io/CityGym/media/reconstructed-city.jpg">
+  <title>CityGym · Generative Building Reconstruction</title>
+  <link rel="icon" href="media/mark.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="page.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="frame masthead">
+    <a class="brand" href="./" aria-label="CityGym home"><span class="mark" aria-hidden="true"></span> CityGym</a>
+    <nav aria-label="Project">
+      <a href="#cities">Cities</a>
+      <a href="#method">Method</a>
+      <a href="#citation">Citation</a>
+    </nav>
+    <a class="button compact" href="https://github.com/Gelercatty/CityGym">GitHub</a>
+  </header>
+
+  <main id="main">
+    <section class="frame intro" aria-labelledby="title">
+      <h1 id="title">City<span>Gym</span></h1>
+      <div class="intro-detail">
+        <p class="subtitle">A Citywide Benchmark for Generative Building Reconstruction from Partial Aerial Observations</p>
+        <p class="authors">Yanwen Ma, Lingfeng He, Yichen Deng, Xuying Zhang, Yijing Guo, Haoran Li, Yumin Tan</p>
+        <a class="button primary" href="#cities">Explore the cities</a>
+      </div>
+    </section>
+
+    <figure class="frame panorama">
+      <div class="comparison" id="comparison">
+        <img src="media/reconstructed-city.jpg" alt="Citywide visualization of BuildFromGen predicted buildings, colored by instance." width="1920" height="804" fetchpriority="high">
+        <img class="survey" src="media/survey-city.jpg" alt="Original simulated city from the same camera." width="1920" height="804" fetchpriority="high">
+        <span class="image-tag survey-tag">Original scene</span>
+        <span class="image-tag mesh-tag">BuildFromGen</span>
+        <div class="divider" aria-hidden="true"><span></span></div>
+        <input id="reveal" type="range" min="0" max="100" value="50" aria-label="Original scene visible" aria-describedby="compare-caption">
+      </div>
+      <figcaption id="compare-caption">
+        <span>Citywide reconstruction from a fixed camera.</span>
+        <span>Drag to compare</span>
+      </figcaption>
+    </figure>
+
+    <dl class="frame stats" aria-label="Benchmark at a glance">
+      <div><dt>Procedural cities</dt><dd>4</dd></div>
+      <div><dt>Complete building meshes</dt><dd>9,262</dd></div>
+      <div><dt>Calibrated RGB views</dt><dd>192,560</dd></div>
+    </dl>
+
+    <section class="frame section" id="cities" aria-labelledby="cities-title">
+      <div class="section-head">
+        <h2 id="cities-title">Explore the<br>four cities<span>.</span></h2>
+        <p>CityGym simulates overhead and oblique photography and independently samples airborne laser returns. Building IDs connect each observation to its complete reference mesh.</p>
+      </div>
+
+      <div class="city-tabs" role="tablist" aria-label="Choose a city">
+        <button id="city-tab-01" role="tab" aria-selected="true" aria-controls="city-panel" data-city="01"><img src="media/city-01.jpg" alt="" loading="lazy" width="1320" height="742"><span>City 01</span></button>
+        <button id="city-tab-02" role="tab" aria-selected="false" aria-controls="city-panel" data-city="02" tabindex="-1"><img src="media/city-02.jpg" alt="" loading="lazy" width="1320" height="742"><span>City 02</span></button>
+        <button id="city-tab-03" role="tab" aria-selected="false" aria-controls="city-panel" data-city="03" tabindex="-1"><img src="media/city-03.jpg" alt="" loading="lazy" width="1320" height="742"><span>City 03</span></button>
+        <button id="city-tab-04" role="tab" aria-selected="false" aria-controls="city-panel" data-city="04" tabindex="-1"><img src="media/city-04.jpg" alt="" loading="lazy" width="1320" height="742"><span>City 04</span></button>
+      </div>
+      <div id="city-panel" role="tabpanel" aria-labelledby="city-tab-01" tabindex="0">
+        <figure class="city-view">
+          <img id="city-image" src="media/city-01.jpg" alt="Aerial overview of City 01" width="1320" height="742" loading="lazy">
+          <figcaption><strong id="city-name">City 01</strong><span id="city-count">2,310 reference meshes · 48,048 aerial views</span></figcaption>
+        </figure>
+        <div class="observations">
+          <div class="observation-heading"><h3>Building observations</h3><span id="case-name">Building 02041</span></div>
+          <div class="observations-grid">
+            <figure><img id="case-rgb" src="media/case-01-rgb.jpg" alt="Aerial view of the selected building" loading="lazy"><figcaption>Aerial RGB</figcaption></figure>
+            <figure><img id="case-points" src="media/case-01-points.jpg" alt="Simulated airborne laser measurements of the selected building" loading="lazy"><figcaption>Airborne laser returns</figcaption></figure>
+            <figure><img id="case-mesh" src="media/case-01-mesh.jpg" alt="Complete reference mesh of the selected building" loading="lazy"><figcaption>Reference mesh</figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="frame section research" id="method" aria-labelledby="method-title">
+      <div class="section-head">
+        <h2 id="method-title">From partial views<br>to full surfaces<span>.</span></h2>
+        <p>Neighboring buildings occlude facades from cameras and aerial scanners. CityGym pairs these partial observations with the geometry needed to measure recovery of the hidden surfaces.</p>
+      </div>
+      <article class="research-row">
+        <div>
+          <h3>CityGym benchmark</h3>
+          <p>Geographic records provide layout guidance. Unreal Engine 5 generates the cities, while cameras and scan rays observe the buildings along independent paths.</p>
+        </div>
+        <figure class="paper-figure"><img src="media/citygym-pipeline.jpg" alt="CityGym pipeline from geographic planning to simulated cities, calibrated views, laser measurements, and complete meshes" width="2000" height="817" loading="lazy"></figure>
+      </article>
+      <article class="research-row">
+        <div>
+          <h3>BuildFromGen</h3>
+          <p>The generative baseline combines uncropped RGB, target boxes, calibrated camera rays, and registered scan points to predict building meshes in a shared frame.</p>
+        </div>
+        <figure class="paper-figure"><img src="media/buildfromgen.jpg" alt="BuildFromGen architecture showing image, target-box, camera-ray, and scan features conditioning mesh generation" width="2000" height="815" loading="lazy"></figure>
+      </article>
+      <dl class="results" aria-label="Main benchmark comparison">
+        <div><dt>Full-surface F1 at 0.5 m</dt><dd>88.93<span>%</span></dd></div>
+        <div><dt>Mean surface Chamfer distance</dt><dd>0.235<span> m</span></dd></div>
+        <div><dt>Evaluation setting</dt><dd>596 held-out buildings, using 32 views and the scan</dd></div>
+      </dl>
+    </section>
+
+    <section class="frame section cite" id="citation" aria-labelledby="cite-title">
+      <div>
+        <h2 id="cite-title">Cite CityGym<span>.</span></h2>
+        <p>Code and data are forthcoming.</p>
+        <a href="https://github.com/Gelercatty/CityGym">CityGym on GitHub</a>
+      </div>
+      <div class="citation-box">
+        <div><span>BibTeX</span><button id="copy-bib" class="button compact" type="button">Copy</button></div>
+        <pre><code id="bibtex">@misc{ma2026citygym,
+  title  = {{CityGym}: A Citywide Benchmark for Generative Building Reconstruction from Partial Aerial Observations},
+  author = {Ma, Yanwen and He, Lingfeng and Deng, Yichen and Zhang, Xuying and Guo, Yijing and Li, Haoran and Tan, Yumin},
+  year   = {2026},
+  url    = {https://github.com/Gelercatty/CityGym}
+}</code></pre>
+        <span id="copy-status" class="visually-hidden" role="status"></span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="frame footer">
+    <a class="brand" href="./"><span class="mark" aria-hidden="true"></span> CityGym</a>
+    <span>Generative building reconstruction</span>
+  </footer>
+</body>
+</html>
