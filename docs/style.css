@@ -10,7 +10,7 @@
   --accent: #d6ff83;
   --sans: "Instrument Sans", "Helvetica Neue", sans-serif;
   --mono: "Space Mono", ui-monospace, monospace;
-  --reveal: 50%;
+  --reveal: 25%;
 }
 
 * { box-sizing: border-box; }
